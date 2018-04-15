@@ -88,7 +88,7 @@ IntervalTimer.defaultProps = {
     timeout: 1000,
     enabled: false,
     callback: () => {
-        return null
+        console.log("You need to set your callback function for IntervalTimer")
     },
     repeat: true
 };
