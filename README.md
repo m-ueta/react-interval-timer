@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/m-ueta/react-interval-timer.svg?branch=master)](https://travis-ci.org/m-ueta/react-interval-timer)
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/m-ueta/react-interval-timer/blob/master/LICENCE)
 
-React Wrapper for setInterval 
+React Component Wrapper for setTimeout and setInterval.
 
 
 ```sh
@@ -54,20 +54,29 @@ IntervalTimer.propTypes = {
     callback: PropTypes.func,
     repeat: PropTypes.bool
 };
+IntervalTimer.defaultProps = {
+    timeout: 1000,
+    enabled: false,
+    callback: () => {
+        console.log("You need set your callback function for IntervalTimer")
+    },
+    repeat: true
+};
 ```
 
 #### timeout
-** Default: 1000 **
 setTimeout setInterval time
 
 #### callback
-** Default: ()=> {return null} **
 callback function
 
 #### enabled
-** Default: false **
-Switch enabled or disabled
+Switch timer  enable or disable
 
 #### repeat
-** default: true **
-switch repeat (use setInterval) or only once (use setTimeout)
+switch using setInterval or setTimeout
+
+
+
+# License
+MIT
