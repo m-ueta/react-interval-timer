@@ -1,7 +1,7 @@
 # React Interval Timer
 
 [![Build Status](https://travis-ci.org/m-ueta/react-interval-timer.svg?branch=master)](https://travis-ci.org/m-ueta/react-interval-timer)
-[![MIT License](https://github.com/m-ueta/react-interval-timer/blob/master/LICENCE)](LICENSE)
+[![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/m-ueta/react-interval-timer/blob/master/LICENCE)
 
 React Wrapper for setInterval 
 
@@ -34,7 +34,7 @@ class App extends React.Component {
 export default App;
 ```
 
-##Run the example app
+## Run the example app
 ```sh
 git clone https://github.com/m-ueta/react-interval-timer.git
 cd react-interval-timer
@@ -44,7 +44,7 @@ npm start
 then open http://localhost:3000
 
 
-##Options
+## Options
 
 ### Props
 ```js
@@ -57,17 +57,17 @@ IntervalTimer.propTypes = {
 ```
 
 #### timeout
-**required** **Default: 1000**
+** Default: 1000 **
 setTimeout setInterval time
 
 #### callback
-**required** **Default: ()=> {return null} **
+** Default: ()=> {return null} **
 callback function
 
-####enabled
-**required** **Default: false **
+#### enabled
+** Default: false **
 Switch enabled or disabled
 
-####repeat
-**required** **default: true **
+#### repeat
+** default: true **
 switch repeat (use setInterval) or only once (use setTimeout)
