@@ -13,7 +13,6 @@ npm-debug.log*
 
 # production
 /build
-/demo
 
 # testing
 /coverage
