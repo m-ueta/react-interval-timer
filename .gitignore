@@ -1,3 +1,11 @@
+/coverage
+/demo/dist
+/es
+/lib
+/node_modules
+/umd
+npm-debug.log*
+
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
