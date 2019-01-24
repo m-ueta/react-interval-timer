@@ -8,11 +8,12 @@ class IntervalTimer extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.repeat) {
-            this.initializeInterval(this.props.callback,this.props.timeout);
-
-        } else {
-            this.initializeTimeout(this.props.callback,this.props.timeout);
+        if (this.props.enabled) {
+            if (this.props.repeat) {
+                this.initializeInterval(this.props.callback, this.props.timeout);
+            } else {
+                this.initializeTimeout(this.props.callback, this.props.timeout);
+            }
         }
     }
 
