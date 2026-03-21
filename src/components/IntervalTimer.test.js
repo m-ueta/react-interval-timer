@@ -1,146 +1,119 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { render, act } from '@testing-library/react';
 import IntervalTimer from './IntervalTimer';
-import { shallow } from 'enzyme';
-
 
 jest.useFakeTimers();
 
-it('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<IntervalTimer />, div);
+afterEach(() => {
+    jest.clearAllTimers();
 });
 
+test('renders without crashing', () => {
+    render(<IntervalTimer />);
+});
 
 test('change Interval to Timeout', () => {
-    const props = {
+    const callback = jest.fn();
+    const baseProps = {
         timeout: 1000,
         enabled: false,
-        callback: jest.fn(),
-        repeat: true
+        callback,
+        repeat: true,
     };
-    const wrapper = shallow(<IntervalTimer />);
-    expect(props.callback).not.toBeCalled();
-    wrapper.setProps({
-        ...props,
-        enabled: true
-    });
-    jest.advanceTimersByTime(1000);
-    expect(props.callback).toHaveBeenCalledTimes(1);
-    jest.advanceTimersByTime(1000);
-    expect(props.callback).toHaveBeenCalledTimes(2);
+    const { rerender } = render(<IntervalTimer {...baseProps} />);
 
-    wrapper.setProps({
-        ...props,
-        enabled: true,
-        repeat: false
-    });
-    jest.advanceTimersByTime(1000);
-    expect(props.callback).toHaveBeenCalledTimes(3);
-    jest.advanceTimersByTime(300000);
-    expect(props.callback).toHaveBeenCalledTimes(3);
+    expect(callback).not.toBeCalled();
 
-    wrapper.setProps({
-        ...props,
-        enabled: true,
-        repeat: true
-    });
-    jest.advanceTimersByTime(20000);
-    expect(props.callback).toHaveBeenCalledTimes(23);
+    rerender(<IntervalTimer {...baseProps} enabled={true} />);
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(callback).toHaveBeenCalledTimes(1);
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(callback).toHaveBeenCalledTimes(2);
+
+    rerender(<IntervalTimer {...baseProps} enabled={true} repeat={false} />);
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(callback).toHaveBeenCalledTimes(3);
+    act(() => { jest.advanceTimersByTime(300000); });
+    expect(callback).toHaveBeenCalledTimes(3);
+
+    rerender(<IntervalTimer {...baseProps} enabled={true} repeat={true} />);
+    act(() => { jest.advanceTimersByTime(20000); });
+    expect(callback).toHaveBeenCalledTimes(23);
 });
 
 test('change Timeout to Interval', () => {
-    const props = {
+    const callback = jest.fn();
+    const baseProps = {
         timeout: 1000,
         enabled: true,
-        callback: jest.fn(),
-        repeat: false
+        callback,
+        repeat: false,
     };
-    const wrapper = shallow(<IntervalTimer />);
-    expect(props.callback).not.toBeCalled();
-    wrapper.setProps({
-        ...props,
-    });
-    jest.advanceTimersByTime(1000);
-    expect(props.callback).toHaveBeenCalledTimes(1);
-    jest.advanceTimersByTime(1000);
-    expect(props.callback).toHaveBeenCalledTimes(1);
-    jest.advanceTimersByTime(1000);
-    expect(props.callback).toHaveBeenCalledTimes(1);
+    const { rerender } = render(<IntervalTimer {...baseProps} />);
 
-    wrapper.setProps({
-        ...props,
-        repeat: true
-    });
-    jest.advanceTimersByTime(1000);
-    expect(props.callback).toHaveBeenCalledTimes(2);
-    jest.advanceTimersByTime(1000);
-    expect(props.callback).toHaveBeenCalledTimes(3);
+    expect(callback).not.toBeCalled();
+
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(callback).toHaveBeenCalledTimes(1);
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(callback).toHaveBeenCalledTimes(1);
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(callback).toHaveBeenCalledTimes(1);
+
+    rerender(<IntervalTimer {...baseProps} repeat={true} />);
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(callback).toHaveBeenCalledTimes(2);
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(callback).toHaveBeenCalledTimes(3);
 });
 
 test('change enabled in timeout', () => {
-    const props = {
+    const callback = jest.fn();
+    const baseProps = {
         timeout: 1000,
         enabled: true,
-        callback: jest.fn(),
-        repeat: false
+        callback,
+        repeat: false,
     };
-    const wrapper = shallow(<IntervalTimer />);
-    expect(props.callback).not.toBeCalled();
-    wrapper.setProps({
-        ...props,
-    });
-    jest.advanceTimersByTime(1000);
-    expect(props.callback).toHaveBeenCalledTimes(1);
-    jest.advanceTimersByTime(1000);
-    expect(props.callback).toHaveBeenCalledTimes(1);
+    const { rerender } = render(<IntervalTimer {...baseProps} />);
 
-    wrapper.setProps({
-        ...props,
-        enabled: false
-    });
-    jest.advanceTimersByTime(10000);
-    expect(props.callback).toHaveBeenCalledTimes(1);
+    expect(callback).not.toBeCalled();
 
-    wrapper.setProps({
-        ...props,
-        enabled: true
-    });
-    jest.advanceTimersByTime(10000);
-    expect(props.callback).toHaveBeenCalledTimes(2);
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(callback).toHaveBeenCalledTimes(1);
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(callback).toHaveBeenCalledTimes(1);
 
+    rerender(<IntervalTimer {...baseProps} enabled={false} />);
+    act(() => { jest.advanceTimersByTime(10000); });
+    expect(callback).toHaveBeenCalledTimes(1);
+
+    rerender(<IntervalTimer {...baseProps} enabled={true} />);
+    act(() => { jest.advanceTimersByTime(10000); });
+    expect(callback).toHaveBeenCalledTimes(2);
 });
 
 test('change enabled in interval', () => {
-    const props = {
+    const callback = jest.fn();
+    const baseProps = {
         timeout: 1000,
         enabled: true,
-        callback: jest.fn(),
-        repeat: true
+        callback,
+        repeat: true,
     };
-    const wrapper = shallow(<IntervalTimer />);
-    expect(props.callback).not.toBeCalled();
-    wrapper.setProps({
-        ...props,
-    });
-    jest.advanceTimersByTime(1000);
-    expect(props.callback).toHaveBeenCalledTimes(1);
-    jest.advanceTimersByTime(1000);
-    expect(props.callback).toHaveBeenCalledTimes(2);
+    const { rerender } = render(<IntervalTimer {...baseProps} />);
 
-    wrapper.setProps({
-        ...props,
-        enabled: false
-    });
-    jest.advanceTimersByTime(10000);
-    expect(props.callback).toHaveBeenCalledTimes(2);
+    expect(callback).not.toBeCalled();
 
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(callback).toHaveBeenCalledTimes(1);
+    act(() => { jest.advanceTimersByTime(1000); });
+    expect(callback).toHaveBeenCalledTimes(2);
 
-    wrapper.setProps({
-        ...props,
-        enabled: true
-    });
-    jest.advanceTimersByTime(10000);
-    expect(props.callback).toHaveBeenCalledTimes(12);
+    rerender(<IntervalTimer {...baseProps} enabled={false} />);
+    act(() => { jest.advanceTimersByTime(10000); });
+    expect(callback).toHaveBeenCalledTimes(2);
 
+    rerender(<IntervalTimer {...baseProps} enabled={true} />);
+    act(() => { jest.advanceTimersByTime(10000); });
+    expect(callback).toHaveBeenCalledTimes(12);
 });
