@@ -1,4 +1,7 @@
 
 module.exports = require('babel-jest').createTransformer({
-    presets: ['es2015', 'react', 'stage-1'],
+    presets: [
+        ['@babel/preset-env', { targets: { node: 'current' } }],
+        ['@babel/preset-react', { runtime: 'automatic' }],
+    ],
 });
