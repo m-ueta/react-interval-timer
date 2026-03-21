@@ -1,6 +1,6 @@
 # React Interval Timer
 
-[![Build Status](https://travis-ci.org/m-ueta/react-interval-timer.svg?branch=master)](https://travis-ci.org/m-ueta/react-interval-timer)
+[![CI](https://github.com/m-ueta/react-interval-timer/actions/workflows/ci.yml/badge.svg)](https://github.com/m-ueta/react-interval-timer/actions/workflows/ci.yml)
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/m-ueta/react-interval-timer/blob/master/LICENCE)
 
 React Component Wrapper for setTimeout and setInterval.
