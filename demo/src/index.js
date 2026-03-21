@@ -1,13 +1,5 @@
-import React, {Component} from 'react'
-import {render} from 'react-dom'
-import App from './App'
+import { createRoot } from 'react-dom/client';
+import App from './App';
 
-class Demo extends Component {
-    render() {
-        return <div>
-            <App/>
-        </div>
-    }
-}
-
-render(<Demo/>, document.querySelector('#demo'))
+const root = createRoot(document.querySelector('#demo'));
+root.render(<App />);
