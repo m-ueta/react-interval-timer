@@ -12,23 +12,24 @@ npm install --save react-interval-timer
 
 
 ## Usage examples
-```js
+```jsx
+import { useState } from 'react';
 import IntervalTimer from 'react-interval-timer';
 
-class App extends React.Component {
+function App() {
+    const [count, setCount] = useState(0);
 
-    render() {
-        return (
-            <div>
-                <IntervalTimer
-                    timeout={1000}
-                    callback={()=>{console.log("Your function")}}
-                    enabled={true}
-                    repeat={true}
-                />
-            </div>
-        )
-    }
+    return (
+        <div>
+            <p>{count}</p>
+            <IntervalTimer
+                timeout={1000}
+                callback={() => setCount(c => c + 1)}
+                enabled={true}
+                repeat={true}
+            />
+        </div>
+    );
 }
 
 export default App;
@@ -41,42 +42,29 @@ cd react-interval-timer
 npm install
 npm start
 ```
-then open http://localhost:3000
+then open http://localhost:5173
 
 
 ## Options
 
 ### Props
-```js
-IntervalTimer.propTypes = {
-    timeout: PropTypes.number,
-    enabled: PropTypes.bool,
-    callback: PropTypes.func,
-    repeat: PropTypes.bool
-};
-IntervalTimer.defaultProps = {
-    timeout: 1000,
-    enabled: false,
-    callback: () => {
-        console.log("You need set your callback function for IntervalTimer")
-    },
-    repeat: true
-};
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `timeout` | `number` | `1000` | Interval / timeout duration in milliseconds |
+| `callback` | `func` | — | Function called on each tick |
+| `enabled` | `bool` | `false` | Start or stop the timer |
+| `repeat` | `bool` | `true` | `true` = setInterval, `false` = setTimeout |
+
+> **Note:** Wrap `callback` in `useCallback` to prevent unnecessary timer restarts.
+
+```jsx
+const tick = useCallback(() => {
+    // your logic
+}, [/* dependencies */]);
+
+<IntervalTimer timeout={1000} callback={tick} enabled={true} repeat={true} />
 ```
-
-#### timeout
-setTimeout setInterval time
-
-#### callback
-callback function
-
-#### enabled
-Switch timer  enable or disable
-
-#### repeat
-switch using setInterval or setTimeout
-
-
 
 # License
 MIT
